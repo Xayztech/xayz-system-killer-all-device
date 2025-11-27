@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRUTAL HARDWARE BY @XYCoolcraft</title>
+    <style>
+        body { 
+            background-color: #000; 
+            color: #ff0000; 
+            font-family: 'Courier New', monospace; 
+            margin: 0; 
+            overflow: hidden;
+            perspective: 1000px; /* Mengaktifkan mode 3D Berat */
+        }
+        #hud {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            background: rgba(0,0,0,0.85);
+            padding: 10px;
+            z-index: 9999;
+            border-bottom: 2px solid red;
+            text-align: center;
+        }
+        .stat { font-size: 14px; margin: 5px; display: block; }
+        h1 { margin: 0; font-size: 24px; animation: blink 0.5s infinite; }
+        button {
+            background: #ff0000; color: #fff; border: 2px solid #fff;
+            padding: 15px 40px; font-size: 18px; font-weight: bold;
+            cursor: pointer; margin-top: 10px; box-shadow: 0 0 15px red;
+        }
+        /* Partikel 3D yang menyiksa GPU */
+        .cube {
+            position: absolute;
+            width: 100px; height: 100px;
+            background: rgba(255, 0, 0, 0.3);
+            border: 1px solid red;
+            transform-style: preserve-3d;
+            box-shadow: 0 0 20px red;
+            backdrop-filter: blur(3px); /* Filter berat */
+        }
+        @keyframes blink { 0% {opacity:1} 50% {opacity:0.2} 100% {opacity:1} }
+    </style>
+</head>
+<body>
+
+    <div id="hud">
+        <h1>⚠️ BRUTAL STRESS ALL DEVICE TYPE ⚠️</h1>
+        <div class="stat">Status: <span id="status" style="color:lime">IDLE</span></div>
+        <div class="stat">CPU Threads: <span id="threads">0</span> (100% Load)</div>
+        <div class="stat">RAM Usage: <span id="ram">0</span> MB (Leak)</div>
+        <div class="stat">Objects: <span id="obj">0</span> (GPU Load)</div>
+        <button onclick="unleashHell()">AKTIFKAN (BRUTAL)</button>
+        <p style="font-size:10px; color:gray">Browser mungkin akan crash total.</p>
+    </div>
+
+    <script>
+        let workers = [];
+        let memoryChunk = [];
+        let isRunning = false;
+        let objectCount = 0;
+
+        const workerScript = `
+            self.onmessage = function() {
+                while(true) {
+                    Math.sqrt(Math.random() * Math.random()) * Math.sin(Math.random());
+                    [].concat(Array(1000).fill('stress'));
+                }
+            };
+        `;
+
+        function unleashHell() {
+            if (isRunning) return;
+            isRunning = true;
+            document.getElementById('status').innerText = "SYSTEM MELTDOWN...";
+            document.getElementById('status').style.color = "red";
+
+            const logicalProcessors = window.navigator.hardwareConcurrency || 4;
+            document.getElementById('threads').innerText = logicalProcessors + " Cores Active";
+
+            const blob = new Blob([workerScript], {type: 'application/javascript'});
+            const workerUrl = URL.createObjectURL(blob);
+
+            for (let i = 0; i < logicalProcessors; i++) {
+                let w = new Worker(workerUrl);
+                w.postMessage("start");
+                workers.push(w);
+            }
+
+            setInterval(() => {
+                if(!isRunning) return;
+                try {
+                    // String 1MB
+                    let junk = new Array(100000).join('x'); 
+                    memoryChunk.push(junk);
+                    
+                    let estimatedRAM = (memoryChunk.length * 100) / 1024;
+                    document.getElementById('ram').innerText = estimatedRAM.toFixed(0);
+                } catch (e) {
+                    document.getElementById('ram').innerText = "MAX LIMIT (CRASH SOON)";
+                }
+            }, 200);
+
+            requestAnimationFrame(gpuKiller);
+        }
+
+        function gpuKiller() {
+            if (!isRunning) return;
+
+            for (let i = 0; i < 20; i++) { 
+                let div = document.createElement('div');
+                div.className = 'cube';
+                
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * window.innerHeight;
+                const rot = Math.random() * 360;
+                
+                div.style.transform = `translate3d(${x}px, ${y}px, 0) rotateZ(${rot}deg) rotateX(${rot}deg)`;
+                
+                document.body.appendChild(div);
+                objectCount++;
+            }
+
+            document.getElementById('obj').innerText = objectCount;
+
+            requestAnimationFrame(gpuKiller);
+        }
+    </script>
+</body>
+</html>
