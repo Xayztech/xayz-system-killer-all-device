@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ULTIMATE STRESS DEVICE</title>
+    <style>
+        body { 
+            background-color: #000; 
+            color: #0f0; 
+            font-family: 'Courier New', monospace; 
+            overflow: hidden; /* Mencegah scroll saat lag */
+            margin: 0;
+        }
+        #ui {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 1000;
+            background: rgba(0,0,0,0.9);
+            padding: 20px;
+            border: 2px solid red;
+            border-radius: 10px;
+        }
+        button {
+            background: red;
+            color: white;
+            font-size: 20px;
+            padding: 15px 30px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        /* Kelas CSS Berat untuk GPU */
+        .heavy-element {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, red, blue, yellow);
+            border-radius: 50%;
+            filter: blur(4px) drop-shadow(0 0 10px white);
+            opacity: 0.7;
+            animation: spin 1s infinite linear;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg) scale(1.5); } }
+    </style>
+</head>
+<body>
+
+    <div id="ui">
+        <h1>⚠️ HARDWARE LIMIT ⚠️</h1>
+        <p>Tes ini akan membanjiri RAM & CPU.</p>
+        <p>Device akan panas, lag, lalu freeze/blank.</p>
+        <p id="status">Status: Menunggu...</p>
+        <p>Total Objek: <span id="count">0</span></p>
+        <p>Penggunaan RAM (Simulasi): <span id="ramusage">0</span> MB</p>
+        <button onclick="startChaos()">START!</button>
+    </div>
+
+    <script>
+        let memoryHog = []; 
+        let isRunning = false;
+        let objectCount = 0;
+
+        function startChaos() {
+            if (isRunning) return;
+            isRunning = true;
+            document.getElementById('status').innerText = "Status: KILL SYSTEM DEVICE...";
+            document.getElementById('status').style.color = "red";
+            
+            requestAnimationFrame(chaosLoop);
+            
+            setInterval(eatRam, 100); 
+        }
+
+        function eatRam() {
+
+            for (let i = 0; i < 50000; i++) {
+                memoryHog.push(Math.random() * Math.random());
+            }
+
+            let estimatedMB = (memoryHog.length * 8) / 1024 / 1024;
+            document.getElementById('ramusage').innerText = estimatedMB.toFixed(2);
+        }
+
+        function chaosLoop() {
+            const fragment = document.createDocumentFragment();
+            
+            for (let i = 0; i < 100; i++) {
+                let div = document.createElement('div');
+                div.className = 'heavy-element';
+                div.style.left = Math.random() * window.innerWidth + 'px';
+                div.style.top = Math.random() * window.innerHeight + 'px';
+                fragment.appendChild(div);
+                objectCount++;
+            }
+            document.body.appendChild(fragment);
+            document.getElementById('count').innerText = objectCount;
+
+            for (let k = 0; k < 10000; k++) {
+                Math.sqrt(k) * Math.sin(k);
+            }
+
+            requestAnimationFrame(chaosLoop);
+        }
+    </script>
+</body>
+</html>
