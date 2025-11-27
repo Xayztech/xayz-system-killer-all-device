@@ -1,0 +1,292 @@
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body.hacker-theme {
+    background-color: #000000;
+    font-family: 'Courier Prime', monospace;
+    color: #00ff00;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+body.hacker-theme::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 2;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+}
+
+.login-wrapper {
+    position: relative;
+    z-index: 3;
+    width: 400px;
+    padding: 40px;
+    border: 1px solid #00ff00;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+    background-color: rgba(0, 10, 0, 0.9);
+}
+
+.hacker-title {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 0px #003300;
+    letter-spacing: 2px;
+}
+
+.input-container {
+    margin-bottom: 20px;
+}
+
+.input-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.hacker-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #00ff00;
+    color: #00ff00;
+    font-family: 'Courier Prime', monospace;
+    font-size: 18px;
+    padding: 5px 0;
+    outline: none;
+}
+
+.hacker-input::placeholder {
+    color: rgba(0, 255, 0, 0.3);
+}
+
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    background-color: #00ff00;
+    color: #000000;
+    font-family: 'Courier Prime', monospace;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-login:hover {
+    background-color: #000000;
+    color: #00ff00;
+    border: 1px solid #00ff00;
+    box-shadow: 0 0 15px #00ff00;
+}
+
+.safelink-area {
+    margin-top: 30px;
+    border-top: 1px dashed #004400;
+    padding-top: 15px;
+    text-align: center;
+}
+
+.text-small {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.btn-safelink {
+    background: none;
+    border: none;
+    color: #00ff00;
+    font-family: 'Courier Prime', monospace;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.account-result {
+    margin-top: 15px;
+    border: 1px solid #00ff00;
+    padding: 10px;
+    display: none;
+    text-align: left;
+}
+
+.account-result.active {
+    display: block;
+    animation: typing 0.5s steps(40, end);
+}
+
+body.modern-theme {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body.pro-theme {
+    background: linear-gradient(135deg, #23074d, #cc5333);
+}
+
+.main-container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    text-align: center;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 50px;
+    letter-spacing: 1px;
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+}
+
+.carousel-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.card-glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 40px;
+    width: 320px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    cursor: pointer;
+}
+
+.card-glass:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
+
+.card-glass.pro-card {
+    border: 1px solid rgba(255, 215, 0, 0.5);
+    background: rgba(40, 0, 0, 0.4);
+}
+
+.card-title {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.card-desc {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.btn-select {
+    padding: 12px 30px;
+    border-radius: 50px;
+    border: none;
+    background: #ffffff;
+    color: #0f2027;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btn-select.gold {
+    background: #ffd700;
+    color: #000000;
+}
+
+.btn-select:hover {
+    transform: scale(1.05);
+}
+
+.version-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.version-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px 30px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s;
+}
+
+.version-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.version-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.btn-download {
+    padding: 8px 25px;
+    border-radius: 8px;
+    border: none;
+    background: #4facfe;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.btn-download.pro-dl {
+    background: linear-gradient(to right, #f12711, #f5af19);
+}
+
+.btn-back {
+    margin-top: 50px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 10px 30px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-back:hover {
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
