@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYSTEM ACCESS</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="hacker-theme">
+    <div class="login-wrapper">
+        <h1 class="hacker-title">ROOT_ACCESS_TERMINAL</h1>
+        <form id="form-login-system">
+            <div class="input-container">
+                <label for="inp-username">> USERNAME_</label>
+                <input type="text" id="inp-username" class="hacker-input" placeholder="..." autocomplete="off" required>
+            </div>
+            <div class="input-container">
+                <label for="inp-password">> PASSWORD_</label>
+                <input type="password" id="inp-password" class="hacker-input" placeholder="..." required>
+            </div>
+            <button type="submit" class="btn-login">[ EXECUTE LOGIN ]</button>
+        </form>
+        
+        <div class="safelink-area">
+            <p class="text-small">No Have Account?</p>
+            <button id="btn-create-account" class="btn-safelink">
+                >> Click here to initialize auto-create account protocol
+            </button>
+            <div id="account-result-area" class="account-result">
+                <p>> STATUS: ACTIVE PERMANENT</p>
+                <p>> USER: <span id="display-user"></span></p>
+                <p>> PASS: <span id="display-pass"></span></p>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/script.js"></script>
+</body>
+  </html>
